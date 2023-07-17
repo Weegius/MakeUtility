@@ -25,12 +25,19 @@ func main() {
 	}
 	defer file.Close()
 
-	// Analyze the file
+	// Analyze the file and print the statistics
+	wordCount, lineCount, charCount := analyzeFile(file)
+
+	fmt.Println("Analyzing the file...")
+	fmt.Printf("Word Count: %d\n", wordCount)
+	fmt.Printf("Line Count: %d\n", lineCount)
+	fmt.Printf("Character Count: %d\n", charCount)
+}
+
+func analyzeFile(file *os.File) (int, int, int) {
 	wordCount := 0
 	lineCount := 0
 	charCount := 0
-
-	fmt.Println("Analyzing the file...")
 
 	scanner := bufio.NewScanner(file)
 
@@ -52,9 +59,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Print the statistics
-	fmt.Printf("Word Count: %d\n", wordCount)
-	fmt.Printf("Line Count: %d\n", lineCount)
-	fmt.Printf("Character Count: %d\n", charCount)
-
+	return wordCount, lineCount, charCount
 }
