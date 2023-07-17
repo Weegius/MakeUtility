@@ -18,7 +18,9 @@ func main() {
 	// Open the file
 	file, err := os.Open(filePath)
 	if err != nil {
+		fmt.Println("Error opening file, please try again.")
 		log.Fatal(err)
+
 	}
 	defer file.Close()
 
