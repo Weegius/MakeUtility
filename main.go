@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -20,7 +22,6 @@ func main() {
 	if err != nil {
 		fmt.Println("Error opening file, please try again.")
 		log.Fatal(err)
-
 	}
 	defer file.Close()
 
@@ -31,10 +32,29 @@ func main() {
 
 	fmt.Println("Analyzing the file...")
 
-	// Next Implement basic analysis of the file
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		// Count the number of lines
+		lineCount++
+
+		// Count the number of characters
+		charCount += len(line)
+
+		// Split the line into words
+		words := strings.Fields(line)
+		wordCount += len(words)
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
 
 	// Print the statistics
 	fmt.Printf("Word Count: %d\n", wordCount)
 	fmt.Printf("Line Count: %d\n", lineCount)
 	fmt.Printf("Character Count: %d\n", charCount)
+
 }
